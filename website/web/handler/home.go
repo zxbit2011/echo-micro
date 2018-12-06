@@ -14,14 +14,15 @@ func Home(c echo.Context) error {
 		c.Request().Form.Encode()))
 }
 
+//Api 微服务
 func ApiHome(c echo.Context) error {
 	r := c.Request()
 	var response json.RawMessage
-	req := client.NewRequest("go.micro.echo.website", "home", r)
+	req := client.NewRequest("go.micro.echo.website", "website", r)
 
 	err := client.Call(context.TODO(), req, &response)
 	if err != nil {
-		return c.HTML(http.StatusBadRequest,err.Error())
+		return c.HTML(http.StatusBadRequest, err.Error())
 	}
 	return c.HTML(http.StatusOK, string(response))
 }
